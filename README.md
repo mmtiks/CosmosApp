@@ -11,4 +11,4 @@ Needed:
 4.Restore lastly created database from file in repository\
 5.In a Terminal navigate to Cosmos folder where Program.cs, ViewModels and others are located\
 6.Command 'dotnet run'\
-7.Website should be running on http://localhost:5094/.\
+7.Website should be running on http://localhost:5094/.
