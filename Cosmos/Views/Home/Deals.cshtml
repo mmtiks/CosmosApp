@@ -1,0 +1,45 @@
+﻿@model List<Cosmos.ViewModels.FlightViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "20 Best Deals";
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Search.css")" asp-append-version="true" />
+</head>
+<h1 class="text-center text-white text-lg-center">Best Deals</h1>
+
+<body>
+    <div id="direct">
+        @foreach (var flight in Model)
+        {
+            @using (Html.BeginForm("ReserveFlight", "Home", FormMethod.Get))
+            {
+                <div class="flight">
+                    <input type="hidden" name="id" value=@flight.id>
+                    <div id="route">
+
+                        <span>
+                            <span class="boldstyle">@(flight.from)</span> to <span class="boldstyle">@(flight.to)</span><span class="blink">-@(Math.Round((decimal)flight.cheaperThanUsual, 0))%</span>
+                        </span><br>
+                        <span>@(flight.distance)km</span>
+                    </div>
+                    <div id="time">
+                        <span class="boldstyle">@flight.flightStart → @flight.flightEnd</span><br>
+                        <span>@(flight.travelTime.Days)d @(flight.travelTime.Hours)h @(flight.travelTime.Minutes)m</span>
+                    </div>
+                    <div id="payment">
+                        <div id="companyandprice">
+                            <span>@flight.companyName </span><br>
+                            <span>@(flight.price)$</span>
+                        </div>
+                        <div>
+                            <input class="search" type="submit" value="Reserve" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</body>

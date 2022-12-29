@@ -1,0 +1,40 @@
+﻿@model Cosmos.ViewModels.FlightViewModel
+@{
+    ViewData["Title"] = "Reserve flight";
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Reservations.css")" asp-append-version="true" />
+</head>
+<h1 class="text-center">@ViewData["Title"]</h1>
+<body>
+    <div class="split">
+        <div id="flightInfo">
+            <span class="fw-bold m-2">Booking Details</span><br />
+            <span class="m-2">Origin: @Model.from</span><br />
+            <span class="m-2">Destination: @Model.to</span><br />
+            <span class="m-2">Provider: @Model.companyName</span><br />
+            <span class="m-2">Price: @(Model.price)$</span><br />
+            <span class="m-2">Distance: @(Model.distance)km</span><br />
+            <span class="m-2">Departure: @Model.flightStart</span><br />
+            <span class="m-2">Arrival: @Model.flightEnd</span><br />
+            <span class="m-2">Travel time: @(Model.travelTime.Days)d  @(Model.travelTime.Hours)h @(Model.travelTime.Minutes)m</span>
+        </div>
+        <div id="personDetails">
+            @using (Html.BeginForm("Reservations", "Home", FormMethod.Post))
+            {
+                <h2 class="text-center">My Details</h2>
+                <input type="hidden" value=@Model.id name="providerId" />
+                <input class="m-2" type="text" name="firstName" placeholder="First Name" />
+
+                <br />
+                <input class="m-2" type="text" name="lastName" placeholder="Last Name" />
+
+                <br />
+                <input class="m-2" type="password" name="passcode" placeholder="Passcode" />
+
+                <br />
+                <input class="m-2" type="submit" value="Submit" />
+            }
+        </div>
+    </div>
+</body>

@@ -1,0 +1,135 @@
+﻿/*PLACEMENT*/
+
+#searchdiv {
+    width: fit-content;
+}
+/*SEARCH AND INPUT COLORS ETC*/
+
+
+
+/*CALENDAR*/
+
+.daterangepicker {
+    font-family: Space;
+}
+
+.btn-primary {
+    background-color: rgb(20,80,81);
+}
+
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: rgb(31,62,90);
+}
+
+.btn-primary.hover, .btn-primaryhover {
+    color: black;
+    background-color: rgb(40,28,60);
+    border-color: white;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: black;
+    background-color: rgb(40,28,60);
+    border-color: white;
+}
+
+/*DATALIST*/
+datalist {
+    position: absolute;
+    background-color: rgb(60,28,49);
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+    width: inherit;
+    padding: 5px;
+}
+
+option {
+    font-size: 20px;
+    background-color: rgb(60,28,49);
+    padding: 4px;
+    color: white;
+    border-bottom: solid 1px darkgray;
+    cursor: pointer;
+}
+
+    option:hover, .active {
+        background-color: lightblue;
+    }
+
+/*RESULT LIST*/
+.flight {
+    display: flex;
+    padding: 10px;
+    color: black;
+    background-color: rgba(255,255,255,0.9);
+    border-bottom: 1px solid black;
+    border-radius: 10px;
+    margin-top: 2px;
+}
+
+#route {
+    width: 20vw;
+    justify-self: start;
+}
+
+.boldstyle {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#companyandprice {
+    margin: auto;
+    padding-right: 5px;
+}
+
+
+#payment {
+    margin-left: auto;
+    display: inline-flex;
+    justify-content: flex-end;
+    text-align: right;
+    flex-direction: row;
+}
+
+
+
+
+
+/*SORTS*/
+#sort {
+    display: flex;
+    justify-content: left;
+}
+
+.selectdiv {
+    margin-left: 15px;
+}
+
+    .selectdiv select {
+        border-radius: 5px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        max-width: 320px;
+        height: 40px;
+        float: right;
+        margin: 5px 0px;
+        padding: 0px 24px;
+        font-size: 16px;
+        line-height: 1.75;
+        color: #333;
+        background-color: #ffffff;
+        background-image: none;
+        border: 1px solid #cccccc;
+        -ms-word-break: normal;
+        word-break: normal;
+    }
+
+.sortoption {
+    background-color: rgb(40,28,60);
+    width: fit-content;
+    font-size: 16px;
+}

@@ -1,0 +1,30 @@
+﻿@*
+    @*https://codepen.io/Hyperplexed/pen/MWXBRBp
+*@
+@{
+    ViewData["Title"] = "Destinations";
+}
+@{
+    var parms = new Dictionary<string, string>
+            {
+                { "to", "11" },
+                { "currentYear", "true" }
+            };
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Destinations.css")" asp-append-version="true" />
+</head>
+<h1 unselectable="on" style="pointer-events: none;" class="text-center text-white text-lg-center">Destinations</h1>
+<body>
+    <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+        <a href="Search?to=Jupiter" class="image"><img src="~/css/Images/jupiter.jpg" draggable="false" /></a>
+        <a href="Search?to=Mars" class="image"><img src="~/css/Images/mars.jpg" draggable="false" /></a>
+        <a href="Search?to=Mercury" class="image"><img src="~/css/Images/mercury.jpg" draggable="false" /></a>
+        <a href="Search?to=Neptune" class="image"><img src="~/css/Images/neptune.jpg" draggable="false" /></a>
+        <a href="Search?to=Venus" class="image"><img src="~/css/Images/venus.jpg" draggable="false" /></a>
+        <a href="Search?to=Saturn" class="image"><img src="~/css/Images/saturn.jpg" draggable="false" /></a>
+        <a href="Search?to=Uranus" class="image"><img src="~/css/Images/uranus.jpg" draggable="false" /></a>
+        <a href="Search?to=Earth" class="image"><img src="~/css/Images/earth.jpg" draggable="false" /></a>
+    </div>
+</body>
+<script src="~/js/Destinations.js" asp-append-version="true"></script>

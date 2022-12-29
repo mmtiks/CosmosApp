@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Search.css")" asp-append-version="true" />
+</head>
+
+<h1 class="text-center text-white">Search Flights</h1>
+<body>
+    @using (Html.BeginForm("SearchResults", "Home", FormMethod.Get))
+    {
+        <input name="company" value="" type="hidden">
+        <input name="sort" value="" type="hidden">
+        <div class="container">
+            <div class="column longer">
+                @*https://dev.to/siddev/customise-datalist-45p0*@
+                <input autocomplete="off" id="origin" list="" type="text" class="wider" placeholder="Origin" name="from" />
+                <datalist id="places">
+                    <option value="Mercury">Mercury</option>
+                    <option value="Venus">Venus</option>
+                    <option value="Earth">Earth</option>
+                    <option value="Mars">Mars</option>
+                    <option value="Jupiter">Jupiter</option>
+                    <option value="Saturn">Saturn</option>
+                    <option value="Uranus">Uranus</option>
+                    <option value="Neptune">Neptune</option>
+                </datalist>
+            </div>
+            <div class="column">
+                <input type="button" onclick="swap()" value="⇋" />
+            </div>
+            <div class="column longer">
+                <input autocomplete="off" id="destination" list="" type="text" class="wider" placeholder="Destination" name="to" value="@ViewData["to"]" />
+                <datalist id="places2">
+                    <option value="Mercury">Mercury</option>
+                    <option value="Venus">Venus</option>
+                    <option value="Earth">Earth</option>
+                    <option value="Mars">Mars</option>
+                    <option value="Jupiter">Jupiter</option>
+                    <option value="Saturn">Saturn</option>
+                    <option value="Uranus">Uranus</option>
+                    <option value="Neptune">Neptune</option>
+                </datalist>
+            </div>
+            <div class="column">
+                <input id="datePicker" class="wider" type="text" name="daterange" />
+                <script>
+                    $(function () {
+                        $('input[name="daterange"]').daterangepicker({
+                            "opens": 'left',
+                            "locale": {
+                                "format": 'DD/MM/YYYY'
+                            }
+                        });
+                    });
+                </script>
+            </div>
+            <div class="column">
+                <input class="search" type="submit" value="Search" />
+            </div>
+        </div>
+    }
+</body>

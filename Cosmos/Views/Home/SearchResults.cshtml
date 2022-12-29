@@ -1,0 +1,206 @@
+﻿@model Cosmos.ViewModels.DirectAndInderectModel
+@{
+    ViewData["Title"] = "Search Results";
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Search.css")" asp-append-version="true" />
+</head>
+<body>
+    @using (Html.BeginForm("SearchResults", "Home", FormMethod.Get))
+    {
+        <div id="search">
+            <div class="container">
+                <div class="column longer">
+                    @*https://dev.to/siddev/customise-datalist-45p0*@
+                    <input autocomplete="off" id="origin" list="" type="text" class="wider" placeholder="Origin" name="from" value=@ViewData["from"] />
+                    <datalist id="places">
+                        <option value="Mercury">Mercury</option>
+                        <option value="Venus">Venus</option>
+                        <option value="Earth">Earth</option>
+                        <option value="Mars">Mars</option>
+                        <option value="Jupiter">Jupiter</option>
+                        <option value="Saturn">Saturn</option>
+                        <option value="Uranus">Uranus</option>
+                        <option value="Neptune">Neptune</option>
+                    </datalist>
+                </div>
+                <div class="column">
+                    <input type="button" onclick="swap()" value="⇋" />
+                </div>
+                <div class="column longer">
+                    <input autocomplete="off" id="destination" list="" type="text" class="wider" placeholder="Destination" name="to" value=@ViewData["to"] />
+                    <datalist id="places2">
+                        <option value="Mercury">Mercury</option>
+                        <option value="Venus">Venus</option>
+                        <option value="Earth">Earth</option>
+                        <option value="Mars">Mars</option>
+                        <option value="Jupiter">Jupiter</option>
+                        <option value="Saturn">Saturn</option>
+                        <option value="Uranus">Uranus</option>
+                        <option value="Neptune">Neptune</option>
+                    </datalist>
+                </div>
+                <div class="column">
+                    <input id="datePicker" class="wider" type="text" name="daterange">
+                    <script>
+                        var start = JSON.parse('@Html.Raw(Json.Serialize(ViewData["startDate"]))');
+                        var end = JSON.parse('@Html.Raw(Json.Serialize(ViewData["endDate"]))');
+                        $(function () {
+                            $('input[name="daterange"]').daterangepicker({
+                                "opens": 'left',
+                                "startDate": start,
+                                "endDate": end,
+                                "locale": {
+                                    "format": 'DD/MM/YYYY'
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="column">
+                    <input class="search" type="submit" value="Search" />
+                </div>
+            </div>
+        </div>
+        <div id="sort">
+            <div class="selectdiv">
+                <label>
+                    <select id="company" name="company">
+                        <option class="sortoption" value="">All Companies</option>
+                        <option class="sortoption" value="Explore Dynamite">Explore Dynamite</option>
+                        <option class="sortoption" value="Explore Origin">Explore Origin</option>
+                        <option class="sortoption" value="Galaxy Express">Galaxy Express</option>
+                        <option class="sortoption" value="Space Odyssey">Space Odyssey</option>
+                        <option class="sortoption" value="Space Piper">Space Piper</option>
+                        <option class="sortoption" value="Space Voyager">Space Voyager</option>
+                        <option class="sortoption" value="Spacegenix">Spacegenix</option>
+                        <option class="sortoption" value="Spacelux">Spacelux</option>
+                        <option class="sortoption" value="SpaceX">SpaceX</option>
+                        <option class="sortoption" value="Travel Nova">Travel Nova</option>
+                    </select>
+                </label>
+            </div>
+            <div class="selectdiv">
+                <label>
+                    <select id="sortby" name="sort">
+                        <option class="sortoption" value="" selected> Sort by</option>
+                        <option class="sortoption" value="priceasc">Price ↑</option>
+                        <option class="sortoption" value="pricedesc">Price: ↓</option>
+                        <option class="sortoption" value="distanceasc">Distance ↑</option>
+                        <option class="sortoption" value="distancedesc">Distance: ↓</option>
+                        <option class="sortoption" value="departureasc">Departure ↑</option>
+                        <option class="sortoption" value="departuredesc">Departure: ↓</option>
+                        <option class="sortoption" value="arrivalasc">Arrival: ↑</option>
+                        <option class="sortoption" value="arrivaldesc">Arrival: ↓</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    }
+
+    <div class="directornot">
+        <a onClick="showDirect()">Direct flights(@((Model).flights.Count()))</a>
+        @if (Model.indirectflights != null)
+        {
+            <a onclick="showIndirect()">
+                InDirect flights(@(
+            (Model).indirectflights.Count()
+            ))
+            </a>
+        }
+        else
+        {
+            <a onclick="showIndirect()">
+                InDirect flights(0)
+            </a>
+        }
+    </div>
+    <div id="direct">
+        @foreach (var flight in Model.flights)
+        {
+            @using (Html.BeginForm("ReserveFlight", "Home", FormMethod.Get))
+            {
+                <div class="flight">
+                    <input type="hidden" name="id" value=@flight.id>
+                    <div id="route">
+                        <span><span class="boldstyle">@(flight.from)</span> to <span class="boldstyle">@(flight.to)</span></span><br>
+                        <span>@(flight.distance)km</span>
+                    </div>
+                    <div id="time">
+                        <span class="boldstyle">@flight.flightStart → @flight.flightEnd</span><br>
+                        <span>@(flight.travelTime.Days)d @(flight.travelTime.Hours)h @(flight.travelTime.Minutes)m</span>
+                    </div>
+                    <div id="payment">
+                        <div id="companyandprice">
+                            <span>@flight.companyName </span><br>
+                            <span>@(flight.price)$</span>
+                        </div>
+                        <div>
+                            <input class="search" type="submit" value="Reserve" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div id="indirect" class="text-white text-center" style="display:none">
+        @if (Model.indirectflights == null)
+        {
+            if (ViewData["from"] == null || ViewData["to"] == null)
+            {
+                <h2>Only available if origin and destination are selected</h2>
+            }
+            else
+            {
+                <h2>Direct flights are available, not looking for indirect</h2>
+            }
+        }
+    </div>
+    @if (Model.indirectflights != null)
+    {
+        @foreach (var key in Model.indirectflights.Keys)
+        {
+            <h1>
+                @foreach (var place in key)
+                {
+                    <span class="text-white">@place -></span>
+                }
+            </h1>
+            @foreach (var flight in Model.indirectflights[key])
+            {
+                <div class="flight">
+                    <div id="route">
+                        <span>@flight.Sum(f => f.distance)</span>
+                    </div>
+                    <div id="time">
+                        <span>@flight[0].flightStart - @flight[flight.Count - 1].flightEnd</span>
+                    </div>
+                    <div id="payment">
+                        <span>@flight.Sum(f => f.price)</span>
+                    </div>
+                </div>
+            }
+
+        }
+    }
+</body>
+<script>
+    var company = document.getElementById("company").options;
+    var choose = JSON.parse('@Html.Raw(Json.Serialize(ViewData["company"]))');
+    for (var i = 0; i < company.length; i++) {
+        if (company[i].text == choose) {
+            company[i].selected = true;
+            break;
+        }
+    }
+
+    var sort = document.getElementById("sortby").options;
+    var choose = JSON.parse('@Html.Raw(Json.Serialize(ViewData["sort"]))');
+    for (var i = 0; i < sort.length; i++) {
+        if (sort[i].value == choose) {
+            sort[i].selected = true;
+            break;
+        }
+    }
+
+</script>

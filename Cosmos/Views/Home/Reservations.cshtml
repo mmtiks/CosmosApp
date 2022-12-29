@@ -1,0 +1,60 @@
+﻿@model List<Cosmos.ViewModels.ReservationViewModel>
+@{
+    ViewData["Title"] = "My reservations";
+}
+<head>
+    <link rel="stylesheet" href="@Url.Content("~/css/Reservations.css")" asp-append-version="true" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Search.css")" asp-append-version="true" />
+</head>
+<header>
+    <h1 class="text-center">My reservations</h1>
+    @using (Html.BeginForm("Reservations", "Home", FormMethod.Post))
+    {
+        <div class="text-center container mb-5">
+            <div class="longer column">
+                <input type="text" name="firstName" placeholder="First Name" />
+            </div>
+            <div class="longer column">
+                <input type="text" name="lastName" placeholder="Last Name" />
+            </div>
+            <div class="longer column">
+                <input type="text" name="passcode" placeholder="Passcode" />
+            </div>
+            <input type="submit" value="Find" class="search" />
+        </div>
+    }
+</header>
+<body>
+    @if (Model.Count == 0)
+    {
+        <h2 class="text-white text-center">No reservations found</h2>
+    }
+    @foreach (var flight in Model)
+    {
+        @using (Html.BeginForm("Reservations", "Home", FormMethod.Post))
+        {
+            <div class="flight">
+                <input type="hidden" name="id" value=@flight.id>
+                <input type="hidden" name="delete" value="1">
+                <input type="hidden" name="passcode" value="@(ViewData["passcode"])">
+                <div id="route">
+                    <span><span class="boldstyle">@(flight.from)</span> to <span class="boldstyle">@(flight.to)</span></span><br>
+                    <span>@(flight.distance)km</span>
+                </div>
+                <div id="time">
+                    <span class="boldstyle">@flight.flightStart → @flight.flightEnd</span><br>
+                    <span>@(flight.travelTime.Days)d @(flight.travelTime.Hours)h @(flight.travelTime.Minutes)m</span>
+                </div>
+                <div id="payment">
+                    <div id="companyandprice">
+                        <span>@flight.companyName </span><br>
+                        <span>@(flight.price)$</span>
+                    </div>
+                    <div>
+                        <input class="search" type="submit" value="Cancel" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</body>
