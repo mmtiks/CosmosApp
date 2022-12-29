@@ -33,6 +33,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+// Call to the api and save to the database every 15 minutes
 Thread printer = new Thread(new ThreadStart(InvokeMethod));
 printer.Start();
 
@@ -45,5 +47,4 @@ void InvokeMethod()
     }
 }
 
-app.Seed();
 app.Run();
