@@ -7,16 +7,6 @@ function swap() {
     field2.value = hold
 }
 
-function showDirect() {
-    document.getElementById("indirect").style.display = "none";
-    document.getElementById("direct").style.display = "block";
-}
-function showIndirect() {
-    document.getElementById("direct").style.display = "none";
-    document.getElementById("indirect").style.display = "block";
-}
-
-
 //SEARCH
 function dropdown(input, places) {
     input.onfocus = function () {

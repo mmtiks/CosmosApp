@@ -6,8 +6,8 @@ using Route = Cosmos.Data.Route;
 
 namespace Cosmos
 {
- 
-//  This class saves data from the api and forwards it to the database, also in case there are 15 priceLists stored, deletes the oldest one
+
+    //  This class saves data from the api and forwards it to the database, also in case there are 15 priceLists stored, deletes the oldest one
     public static class FlightServices
     {
 

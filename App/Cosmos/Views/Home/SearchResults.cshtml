@@ -99,19 +99,19 @@
     }
 
     <div class="directornot">
-        <a onClick="showDirect()">Direct flights(@((Model).flights.Count()))</a>
+        <a onClick="showDirect()" id="directText">Direct flights(@((Model).flights.Count()))</a>
         @if (Model.indirectflights != null)
         {
-            <a onclick="showIndirect()">
-                InDirect flights(@(
+            <a onclick="showIndirect()" id="indirectText">
+                InDirect Routes(@(
             (Model).indirectflights.Count()
             ))
             </a>
         }
         else
         {
-            <a onclick="showIndirect()">
-                InDirect flights(0)
+            <a onclick="showIndirect()" id="indirectText">
+                InDirect Routes(0)
             </a>
         }
     </div>
@@ -155,35 +155,36 @@
                 <h2>Direct flights are available, not looking for indirect</h2>
             }
         }
-    </div>
-    @if (Model.indirectflights != null)
-    {
-        @foreach (var key in Model.indirectflights.Keys)
+        @if (Model.indirectflights != null)
         {
-            <h1>
-                @foreach (var place in key)
-                {
-                    <span class="text-white">@place -></span>
-                }
-            </h1>
-            @foreach (var flight in Model.indirectflights[key])
+            @foreach (var key in Model.indirectflights.Keys)
             {
-                <div class="flight">
-                    <div id="route">
-                        <span>@flight.Sum(f => f.distance)</span>
+                <h1>
+                    @foreach (var place in key)
+                    {
+                        <span class="text-white">@place -></span>
+                    }
+                </h1>
+                @foreach (var flight in Model.indirectflights[key])
+                {
+                    <div class="flight">
+                        <div id="route">
+                            <span>@flight.Sum(f => f.distance) km total</span>
+                        </div>
+                        <div id="time">
+                            <span>@flight[0].flightStart - @flight[flight.Count - 1].flightEnd</span>
+                        </div>
+                        <div id="payment">
+                            <span>@flight.Sum(f => f.price)$</span>
+                        </div>
                     </div>
-                    <div id="time">
-                        <span>@flight[0].flightStart - @flight[flight.Count - 1].flightEnd</span>
-                    </div>
-                    <div id="payment">
-                        <span>@flight.Sum(f => f.price)</span>
-                    </div>
-                </div>
-            }
+                }
 
+            }
         }
-    }
+    </div>
 </body>
+<script src="~/js/SearchResults.js" asp-append-version="true"></script>
 <script>
     var company = document.getElementById("company").options;
     var choose = JSON.parse('@Html.Raw(Json.Serialize(ViewData["company"]))');
